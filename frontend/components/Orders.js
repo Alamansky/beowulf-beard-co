@@ -5,8 +5,9 @@ import Error from "./ErrorMessage";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
 import formatMoney from "../lib/formatMoney";
-import OrderItemStyles from "./styles/OrderItemStyles";
 import styled from "styled-components";
+import Table from "./styles/Table";
+import OrderFulfillmentCheck from "./OrderFulfillmentCheck";
 
 const ORDERS_QUERY = gql`
   query ORDERS_QUERY {
@@ -14,6 +15,10 @@ const ORDERS_QUERY = gql`
       id
       total
       createdAt
+      fulfilled
+      customerName
+      customerEmail
+      customerAddress
       items {
         id
         title
@@ -33,6 +38,9 @@ const OrderUL = styled.ul`
 `;
 
 export default class Orders extends Component {
+  state = {
+    unfilledOrders: 0
+  };
   render() {
     return (
       <Query query={ORDERS_QUERY}>
@@ -40,38 +48,57 @@ export default class Orders extends Component {
           if (error) return <Error error={error} />;
           if (loading) return <span>Loading...</span>;
           return (
-            <div>
-              <p>You have {orders.length}</p>
-              <OrderUL>
-                {orders.map(order => (
-                  <OrderItemStyles key={order.id}>
-                    <Link
-                      href={{ pathname: "/order", query: { id: order.id } }}
-                    >
-                      <a>
-                        <div className="order-meta">
-                          <p>
-                            {order.items.reduce((a, b) => a + b.quantity, 0)}{" "}
-                            Items
+            <div style={{ padding: "4rem" }}>
+              <p>
+                {`You have ${
+                  orders.filter(order => !order.fulfilled).length
+                } unfulfilled order(s)`}
+              </p>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Fulfilled</th>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Customer Email</th>
+                    <th>Address</th>
+                    <th>Item(s)</th>
+                    <th>Time Since Order</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map(order => (
+                    <tr key={order.id}>
+                      <td>
+                        <OrderFulfillmentCheck order={order} />
+                      </td>
+                      <Link
+                        href={{ pathname: "/order", query: { id: order.id } }}
+                        key={order.id}
+                      >
+                        <td>
+                          <a>{order.id}</a>
+                        </td>
+                      </Link>
+                      <td>{order.customerName}</td>
+                      <td>{order.customerEmail}</td>
+                      <td>{order.customerAddress}</td>
+                      <td>
+                        {order.items.map(item => (
+                          <p key={item.id}>
+                            {`${item.title} (x${item.quantity} @ ${formatMoney(
+                              item.price
+                            )} each)\n`}
                           </p>
-                          <p>{order.items.length} Products</p>
-                          <p>{formatDistance(order.createdAt, new Date())}</p>
-                          <p>{formatMoney(order.total)}</p>
-                        </div>
-                        <div className="images">
-                          {order.items.map(item => (
-                            <img
-                              key={item.id}
-                              src={item.image}
-                              alt={item.title}
-                            />
-                          ))}
-                        </div>
-                      </a>
-                    </Link>
-                  </OrderItemStyles>
-                ))}
-              </OrderUL>
+                        ))}
+                      </td>
+                      <td>{formatDistance(order.createdAt, new Date())}</td>
+                      <td>{formatMoney(order.total)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </div>
           );
         }}
@@ -79,3 +106,5 @@ export default class Orders extends Component {
     );
   }
 }
+
+export { ORDERS_QUERY };

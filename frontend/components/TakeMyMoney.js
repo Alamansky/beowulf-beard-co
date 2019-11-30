@@ -8,10 +8,22 @@ import calcTotalPrice from "../lib/calcTotalPrice";
 import Error from "./ErrorMessage";
 import User, { CURRENT_USER_QUERY } from "./User";
 import gql from "graphql-tag";
+import { createDecipher } from "crypto";
+import { TOGGLE_CART_MUTATION } from "./Cart";
 
 const CREATE_ORDER_MUTATION = gql`
-  mutation createOrder($token: String!) {
-    createOrder(token: $token) {
+  mutation createOrder(
+    $token: String!
+    $customerName: String!
+    $customerEmail: String!
+    $customerAddress: String!
+  ) {
+    createOrder(
+      token: $token
+      customerName: $customerName
+      customerEmail: $customerEmail
+      customerAddress: $customerAddress
+    ) {
       id
       charge
       total
@@ -31,15 +43,19 @@ function totalItems(cart) {
 }
 
 class TakeMyMoney extends React.Component {
-  onToken = async (res, createOrder) => {
+  onToken = async (res, createOrder, toggleCart) => {
     NProgress.start();
-    console.log("token called!");
-    const order = await createOrder({ variables: { token: res.id } }).catch(
-      err => {
-        alert(err.message);
+    const order = await createOrder({
+      variables: {
+        token: res.id,
+        customerName: res.card.name,
+        customerEmail: res.email,
+        customerAddress: `${res.card.address_line1} ${res.card.address_city} ${res.card.address_state} ${res.card.address_zip}`
       }
-    );
-    console.log(order);
+    }).catch(err => {
+      alert(err.message);
+    });
+    toggleCart();
     Router.push({
       pathname: "/order",
       query: { id: order.data.createOrder.id }
@@ -49,26 +65,34 @@ class TakeMyMoney extends React.Component {
     return (
       <User>
         {({ data: { me } }) => (
-          <Mutation
-            mutation={CREATE_ORDER_MUTATION}
-            refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-          >
-            {createOrder => (
-              <StripeCheckout
-                amount={calcTotalPrice(me.cart)}
-                name="Sick Fits"
-                description={`Order of ${totalItems(me.cart)} items`}
-                image={
-                  me.cart.length && me.cart[0].item && me.cart[0].item.image
-                }
-                stripeKey="pk_test_cuneRiwfxR18sDgqqv8haHmB00avtCjBnE"
-                currency="USD"
-                email={me.email}
-                token={res => this.onToken(res, createOrder)}
-              >
-                {this.props.children}
-              </StripeCheckout>
-            )}
+          <Mutation mutation={TOGGLE_CART_MUTATION}>
+            {toggleCart => {
+              return (
+                <Mutation
+                  mutation={CREATE_ORDER_MUTATION}
+                  refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+                >
+                  {createOrder => (
+                    <StripeCheckout
+                      amount={calcTotalPrice(me.cart)}
+                      name="Beowulf Beard Co"
+                      description={`Order of ${totalItems(me.cart)} items`}
+                      image={
+                        me.cart.length &&
+                        me.cart[0].item &&
+                        me.cart[0].item.image
+                      }
+                      stripeKey="pk_test_cuneRiwfxR18sDgqqv8haHmB00avtCjBnE"
+                      currency="USD"
+                      token={res => this.onToken(res, createOrder, toggleCart)}
+                      shippingAddress
+                    >
+                      {this.props.children}
+                    </StripeCheckout>
+                  )}
+                </Mutation>
+              );
+            }}
           </Mutation>
         )}
       </User>

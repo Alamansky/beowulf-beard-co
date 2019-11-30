@@ -5,6 +5,7 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import Cart from "./Cart";
 import Search from "./Search";
+import env from "../env.json";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -21,11 +22,9 @@ const Logo = styled.h1`
   margin-left: 2rem;
   position: relative;
   z-index: 2;
-  transform: skew(-7deg);
   a {
     padding: 0.5rem 1rem;
-    background: ${props => props.theme.red};
-    color: white;
+    color: ${props => props.theme.black};
     text-transform: uppercase;
     text-decoration: none;
   }
@@ -37,6 +36,7 @@ const Logo = styled.h1`
 `;
 
 const StyledHeader = styled.header`
+  background-color: white;
   .bar {
     border-bottom: 20px solid ${props => props.theme.black};
     display: grid;
@@ -60,7 +60,7 @@ const Header = () => (
     <div className="bar">
       <Logo>
         <Link href="/">
-          <a href="">Beowulf</a>
+          <a href="">{env.siteTitle}</a>
         </Link>
       </Logo>
       <Nav></Nav>

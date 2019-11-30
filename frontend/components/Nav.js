@@ -2,32 +2,33 @@ import { Mutation } from "react-apollo";
 import Link from "next/link";
 import NavStyles from "./styles/NavStyles";
 import User from "./User";
-import SignOut from "./SignOut";
 import { TOGGLE_CART_MUTATION } from "./Cart";
 import CartCount from "./CartCount";
 
 const Nav = () => (
   <User>
-    {({ data: { me } }) => (
-      <NavStyles>
-        <Link href="/items">
-          <a>Shop</a>
-        </Link>
-        {me && (
-          <React.Fragment>
-            <Link href="/sell">
-              <a>Sell</a>
-            </Link>
-            <Link href="/signup">
-              <a>Sign In</a>
-            </Link>
+    {user => {
+      const { me } = user.data;
+      const menuItems = ["Shop", "Blog"];
+      return (
+        <NavStyles>
+          {me && me.permissions.includes("ADMIN") && (
             <Link href="/orders">
               <a>Orders</a>
             </Link>
-            <Link href="/account">
-              <a>Account</a>
+          )}
+          <Link href="/#about">
+            <a>About</a>
+          </Link>
+          <Link href="/#contact">
+            <a>Contact</a>
+          </Link>
+          {menuItems.map(item => (
+            <Link href={`/${item.toLowerCase()}`} key={item}>
+              <a>{item}</a>
             </Link>
-            <SignOut />
+          ))}
+          {me && (
             <Mutation mutation={TOGGLE_CART_MUTATION}>
               {toggleCart => (
                 <button onClick={toggleCart}>
@@ -41,15 +42,10 @@ const Nav = () => (
                 </button>
               )}
             </Mutation>
-          </React.Fragment>
-        )}
-        {!me && (
-          <Link href="/signup">
-            <a>Sign Up</a>
-          </Link>
-        )}
-      </NavStyles>
-    )}
+          )}
+        </NavStyles>
+      );
+    }}
   </User>
 );
 

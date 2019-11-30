@@ -5,8 +5,11 @@ import Title from "./styles/Title";
 import ItemStyles from "./styles/ItemStyles";
 import PriceTag from "./styles/PriceTag";
 import formatMoney from "../lib/formatMoney";
-import DeleteItem from "./deleteItem";
+import DeleteItem from "./DeleteItem";
 import AddToCart from "./AddToCart";
+import User from "../components/User";
+import Center from "./styles/Center";
+import SickButton from "./styles/SickButton";
 
 export default class Item extends Component {
   static propTypes = {
@@ -15,23 +18,33 @@ export default class Item extends Component {
   render() {
     const { item } = this.props;
     return (
-      <ItemStyles>
-        {item.image && <img src={item.image} alt={item.title} />}
-        <Title>
-          <Link href={{ pathname: "/item", query: { id: item.id } }}>
-            <a>{item.title}</a>
-          </Link>
-        </Title>
-        <PriceTag>{formatMoney(item.price)}</PriceTag>
-        <p>{item.description}</p>
-        <div className="buttonList">
-          <Link href={{ pathname: "/update", query: { id: item.id } }}>
-            <a>Edit</a>
-          </Link>
-          <AddToCart id={item.id} />
-          <DeleteItem id={item.id}>Delete this Item</DeleteItem>
-        </div>
-      </ItemStyles>
+      <User>
+        {({ data: { me } }) => (
+          <ItemStyles>
+            {item.image && <img src={item.image} alt={item.title} />}
+            <Title>
+              <Link href={{ pathname: "/item", query: { id: item.id } }}>
+                <a>{item.title}</a>
+              </Link>
+            </Title>
+            <p>{item.description}</p>
+            <PriceTag>{formatMoney(item.price)}</PriceTag>
+            <AddToCart button={SickButton} id={item.id} />
+            <div className="buttonList">
+              {me && (
+                <React.Fragment>
+                  <Link href={{ pathname: "/update", query: { id: item.id } }}>
+                    <a>Edit</a>
+                  </Link>
+                  <DeleteItem id={item.id}>
+                    <a>Delete this Item</a>
+                  </DeleteItem>
+                </React.Fragment>
+              )}
+            </div>
+          </ItemStyles>
+        )}
+      </User>
     );
   }
 }

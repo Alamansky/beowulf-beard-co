@@ -5,6 +5,7 @@ import Form from "./styles/Form";
 import formatMoney from "../lib/formatMoney";
 import gql from "graphql-tag";
 import Error from "./ErrorMessage";
+import TextArea from "./styles/TextArea";
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
@@ -97,7 +98,7 @@ class updateItem extends Component {
                     </label>
                     <label htmlFor="description">
                       description
-                      <textarea
+                      <TextArea
                         type="text"
                         id="description"
                         name="description"

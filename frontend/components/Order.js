@@ -7,6 +7,8 @@ import gql from "graphql-tag";
 import formatMoney from "../lib/formatMoney";
 import Error from "./ErrorMessage";
 import OrderStyles from "./styles/OrderStyles";
+import InnerBorder from "./styles/InnerBorder";
+import OrderCopy from "./copy/OrderCopy";
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -15,6 +17,9 @@ const SINGLE_ORDER_QUERY = gql`
       charge
       total
       createdAt
+      customerName
+      customerAddress
+      customerEmail
       user {
         id
       }
@@ -42,49 +47,52 @@ class Order extends React.Component {
           if (loading) return <span>Loading...</span>;
           const order = data.order;
           return (
-            <OrderStyles data-test="order">
-              <Head>
-                <title>Sick Fits - Order {order.id}</title>
-              </Head>
-              <p>
-                <span>Order ID:</span>
-                <span>{this.props.id}</span>
-              </p>
-              <p>
-                <span>Charge</span>
-                <span>{order.charge}</span>
-              </p>
-              <p>
-                <span>Date</span>
-                <span>
-                  {format(order.createdAt, "MMMM d, YYYY h:mm a", {
-                    awareOfUnicodeTokens: true
-                  })}
-                </span>
-              </p>
-              <p>
-                <span>Order Total</span>
-                <span>{formatMoney(order.total)}</span>
-              </p>
-              <p>
-                <span>Item Count</span>
-                <span>{order.items.length}</span>
-              </p>
-              <div className="items">
-                {order.items.map(item => (
-                  <div className="order-item" key={item.id}>
-                    <img src={item.image} alt={item.title} />
-                    <div className="item-details">
-                      <h2>{item.title}</h2>
-                      <p>Qty: {item.quantity}</p>
-                      <p>Each: {formatMoney(item.price)}</p>
-                      <p>SubTotal: {formatMoney(item.price * item.quantity)}</p>
-                      <p>{item.description}</p>
+            <React.Fragment>
+              <InnerBorder>
+                <OrderCopy order={order} />
+              </InnerBorder>
+              <OrderStyles data-test="order">
+                <Head>
+                  <title>Sick Fits - Order {order.id}</title>
+                </Head>
+                <p>
+                  <span>Order ID:</span>
+                  <span>{this.props.id}</span>
+                </p>
+                <p>
+                  <span>Date:</span>
+                  <span>
+                    {format(order.createdAt, "MMMM d, YYYY h:mm a", {
+                      awareOfUnicodeTokens: true
+                    })}
+                  </span>
+                </p>
+                <p>
+                  <span>Total Item Count:</span>
+                  <span>{order.items.length}</span>
+                </p>
+                <div className="items">
+                  <p>Item(s) in This Order:</p>
+                  {order.items.map(item => (
+                    <div className="order-item" key={item.id}>
+                      <img src={item.image} alt={item.title} />
+                      <div className="item-details">
+                        <h2>{item.title}</h2>
+                        <p>Qty: {item.quantity}</p>
+                        <p>Unit Price: {formatMoney(item.price)}</p>
+                        <p>
+                          Sub-total: {formatMoney(item.price * item.quantity)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </OrderStyles>
+                  ))}
+                </div>
+                <p>
+                  <span>ORDER TOTAL:</span>
+                  <span>{formatMoney(order.total)}</span>
+                </p>
+              </OrderStyles>
+            </React.Fragment>
           );
         }}
       </Query>

@@ -11,6 +11,7 @@ import calcTotalPrice from "../lib/calcTotalPrice";
 import formatMoney from "../lib/formatMoney";
 import { adopt } from "react-adopt";
 import TakeMyMoney from "./TakeMyMoney";
+import { theme } from "./Page";
 
 const LOCAL_STATE_QUERY = gql`
   query {
@@ -44,10 +45,10 @@ const Cart = () => {
               <CloseButton title="close" onClick={toggleCart}>
                 &times;
               </CloseButton>
-              <Supreme>{me.name}'s Cart</Supreme>
+              <Supreme>Your Cart</Supreme>
               <p>
                 You have {me.cart.length} item
-                {me.cart.length === 1 ? "" : "s"} in your card
+                {me.cart.length === 1 ? "" : "s"} in your cart
               </p>
             </header>
             <ul>
@@ -61,7 +62,9 @@ const Cart = () => {
               <p>{formatMoney(calcTotalPrice(me.cart))}</p>
               {me.cart.length && (
                 <TakeMyMoney>
-                  <SickButton>Checkout</SickButton>
+                  <SickButton backgroundColor={theme.redRGB}>
+                    Checkout
+                  </SickButton>
                 </TakeMyMoney>
               )}
             </footer>

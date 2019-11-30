@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Item from "./Item";
 import Pagination from "./Pagination";
 import { perPage } from "../config";
+import ItemsList from "../components/styles/ItemsList";
+import Center from "../components/styles/Center";
 
 const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
@@ -17,19 +19,6 @@ const ALL_ITEMS_QUERY = gql`
       largeImage
     }
   }
-`;
-
-const Center = styled.div`
-  text-align: center;
-`;
-
-const ItemsList = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 60px;
-  /*max-width: ${props => props.theme.maxWidth};*/
-  margin: 0 auto;
-  color: blue;
 `;
 
 class Items extends Component {

@@ -44,7 +44,7 @@ export default class Signin extends Component {
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Sign in to an existing account</h2>
+                <h2>Sign in to your Admin Account</h2>
                 <Error error={error} />
                 <label htmlFor="email">
                   Email

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Table = styled.table`
   border-spacing: 0;
@@ -13,6 +13,7 @@ const Table = styled.table`
     border-right: 1px solid ${props => props.theme.offWhite};
     padding: 10px 5px;
     position: relative;
+    font-size: 14px;
     &:last-child {
       border-right: none;
       width: 150px;
@@ -21,9 +22,11 @@ const Table = styled.table`
       }
     }
   }
-  tr {
+  a {
+    text-decoration: underline;
+    color: ${props => props.theme.grey};
     &:hover {
-      background: ${props => props.theme.offWhite};
+      cursor: pointer;
     }
   }
 `;

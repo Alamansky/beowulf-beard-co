@@ -2,8 +2,8 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "variables.env" });
 
-const createServer = require("./createServer");
-const db = require("./db");
+const createServer = require("./server/createServer");
+const db = require("./server/db");
 
 const server = createServer();
 
@@ -22,6 +22,8 @@ server.express.use((req, res, next) => {
 
 server.express.use(async (req, res, next) => {
   if (!req.userId) {
+    /* // if no userId, create one so user can act as guest
+    const guest = await db.mutation.registerGuest(); */
     return next();
   }
   const user = await db.query.user(

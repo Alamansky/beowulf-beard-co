@@ -62,17 +62,17 @@ export default class Reset extends Component {
                 <h2>Reset your Password</h2>
                 <Error error={error} />
                 <label htmlFor="password">
-                  Confirm Your Password
+                  Enter Your New Password
                   <input
                     type="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="Password"
                     value={this.state.password}
                     onChange={this.saveToState}
                   />
                 </label>
                 <label htmlFor="confirmPassword">
-                  Confirm Your Password
+                  Confirm Your New Password
                   <input
                     type="password"
                     name="confirmPassword"

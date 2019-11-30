@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Item from "../components/Item";
 import Error from "./ErrorMessage";
 import styled from "styled-components";
 import Head from "next/head";
+import AddToCart from "./AddToCart";
+import Center from "./styles/Center";
+import SickButton from "./styles/SickButton";
+import formatMoney from "../lib/formatMoney";
+import SuggestedItems from "./SuggestedItems";
+import PriceTag from "./styles/PriceTag";
 
 const SingleItemStyles = styled.div`
   max-width: 1200px;
@@ -14,14 +19,24 @@ const SingleItemStyles = styled.div`
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   min-height: 800px;
+
+  @media (max-width: 768px) {
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+  }
+
   img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    align-self: center;
+    padding: 2rem;
   }
   .details {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
     margin: 3rem;
+    padding: 3rem;
     font-size: 2rem;
+    border-left: ${props => `2px solid rgba(${props.theme.lightgreyRGB}, 0.5)`};
   }
 `;
 
@@ -46,25 +61,32 @@ export default class SingleItem extends Component {
           loading,
           data: {
             item,
-            item: { title, description, largeImage }
+            item: { id, title, price, description, largeImage }
           }
         }) => {
-          /* console.log(data);
-          return null; */
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
           if (!item) return <p>No Item found for {this.props.id}</p>;
           return (
-            <SingleItemStyles>
-              <Head>
-                <title>Sick Fits | {title}</title>
-              </Head>
-              <img src={largeImage} alt={title} />
-              <div className="details">
-                <h2>Viewing {title}</h2>
-                <p>{description}</p>
-              </div>
-            </SingleItemStyles>
+            <React.Fragment>
+              <SingleItemStyles>
+                <Head>
+                  <title>Sick Fits | {title}</title>
+                </Head>
+                <img src={largeImage} alt={title} />
+                <div className="details">
+                  <h2>{title}</h2>
+                  <p>{description}</p>
+                  <Center>
+                    <PriceTag>{formatMoney(price)}</PriceTag>
+                  </Center>
+                  <Center style={{ alignSelf: "center" }}>
+                    <AddToCart id={id} button={SickButton}></AddToCart>
+                  </Center>
+                </div>
+              </SingleItemStyles>
+              <SuggestedItems id={this.props.id} />
+            </React.Fragment>
           );
         }}
       </Query>

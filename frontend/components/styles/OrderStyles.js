@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const OrderStyles = styled.div`
   max-width: 1000px;
@@ -9,7 +9,7 @@ const OrderStyles = styled.div`
   border-top: 10px solid red;
   & > p {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 1fr;
     margin: 0;
     border-bottom: 1px solid ${props => props.theme.offWhite};
     span {
@@ -17,6 +17,10 @@ const OrderStyles = styled.div`
       &:first-child {
         font-weight: 900;
         text-align: right;
+        justify-self: left;
+      }
+      &:nth-child(2) {
+        justify-self: right;
       }
     }
   }

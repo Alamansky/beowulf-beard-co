@@ -1,3 +1,3 @@
-# Advanced-React
+# Beowulf Beard Co
 
-frontend
+Front End Repo

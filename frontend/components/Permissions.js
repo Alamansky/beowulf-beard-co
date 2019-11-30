@@ -39,6 +39,7 @@ const Permissions = props => (
   <Query query={ALL_USERS_QUERY}>
     {({ data, loading, error }) => (
       <div>
+        {console.log(data)}
         <Error error={error} />
         <div>
           <h2>Manage Permissions</h2>
@@ -54,9 +55,10 @@ const Permissions = props => (
               </tr>
             </thead>
             <tbody>
-              {data.users.map(user => (
-                <UserPermissions user={user} key={user.name} />
-              ))}
+              {data.users.map(
+                user =>
+                  user.name && <UserPermissions user={user} key={user.name} />
+              )}
             </tbody>
           </Table>
         </div>

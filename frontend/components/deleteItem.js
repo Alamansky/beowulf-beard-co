@@ -32,6 +32,7 @@ export default class deleteItem extends Component {
       >
         {(deleteItem, { error }) => (
           <button
+            style={{ cursor: "pointer" }}
             onClick={() => {
               if (confirm("Are you sure you want to delete this item?")) {
                 deleteItem().catch(err => alert(err.message));

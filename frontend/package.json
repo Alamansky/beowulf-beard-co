@@ -32,20 +32,31 @@
     "react-adopt": "^0.6.0",
     "react-apollo": "^2.2.1",
     "react-dom": "^16.5.2",
+    "react-parallax": "^2.2.4",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "styled-components": "^4.4.0",
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^23.6.0",
+    "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-styled-components": "^1.7.1",
     "casual": "^1.5.19",
     "enzyme-to-json": "^3.3.4",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
     "graphql-tools": "^4.0.0",
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",
+    "prettier": "^1.19.1",
     "stylelint": "^11.0.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -76,6 +87,9 @@
             {
               "ssr": true
             }
+          ],
+          [
+            "inline-react-svg"
           ]
         ]
       },
@@ -90,6 +104,9 @@
               "ssr": true,
               "displayName": true
             }
+          ],
+          [
+            "inline-react-svg"
           ]
         ]
       },
@@ -111,6 +128,9 @@
               "ssr": true,
               "displayName": true
             }
+          ],
+          [
+            "inline-react-svg"
           ]
         ]
       }

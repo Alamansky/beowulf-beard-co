@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const NavStyles = styled.ul`
   margin: 0;
@@ -12,6 +12,7 @@ const NavStyles = styled.ul`
     display: flex;
     align-items: center;
     position: relative;
+    z-index: 2;
     text-transform: uppercase;
     font-weight: 900;
     font-size: 1em;
@@ -23,37 +24,24 @@ const NavStyles = styled.ul`
       padding: 0 10px;
     }
     &:before {
-      content: '';
-      width: 2px;
-      background: ${props => props.theme.lightgrey};
-      height: 100%;
-      left: 0;
+      height: 90%;
+      content: "";
+      width: 60%;
       position: absolute;
-      transform: skew(-20deg);
+      z-index: 1;
       top: 0;
-      bottom: 0;
-    }
-    &:after {
-      height: 2px;
-      background: red;
-      content: '';
-      width: 0;
-      position: absolute;
-      transform: translateX(-50%);
-      transition: width 0.4s;
-      transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
-      left: 50%;
-      margin-top: 2rem;
+      left: 0;
+      transform: translateX(calc(50% - 20%));
     }
     &:hover,
     &:focus {
       outline: none;
-      &:after {
-        width: calc(100% - 60px);
+      &:before {
+        border-bottom: 2px solid black;
       }
-    @media (max-width: 700px) {
+      @media (max-width: 700px) {
         width: calc(100% - 10px);
-    }
+      }
     }
   }
   @media (max-width: 1300px) {

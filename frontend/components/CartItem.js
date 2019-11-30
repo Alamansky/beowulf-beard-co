@@ -36,10 +36,11 @@ const CartItem = ({ cartItem }) => {
       <div className="cart-item-details">
         <h3>{cartItem.item.title}</h3>
         <p>
-          {formatMoney(cartItem.item.price * cartItem.quantity)}
-          {"-"}
+          {`${formatMoney(cartItem.item.price * cartItem.quantity)}`}
+          {" - "}
+          {`QTY: ${cartItem.quantity}`}
           <em>
-            {cartItem.quantity}&times;{formatMoney(cartItem.item.price)} each
+            {` (${formatMoney(cartItem.item.price)}/each)`}
           </em>
         </p>
       </div>

@@ -1,9 +1,5 @@
 import SingleItem from "../components/SingleItem";
 
-const item = ({ query }) => (
-  <div>
-    <SingleItem id={query.id}></SingleItem>
-  </div>
-);
+const item = ({ query }) => <SingleItem id={query.id}></SingleItem>;
 
 export default item;
