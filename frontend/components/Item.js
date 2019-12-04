@@ -8,7 +8,6 @@ import formatMoney from "../lib/formatMoney";
 import DeleteItem from "./DeleteItem";
 import AddToCart from "./AddToCart";
 import User from "../components/User";
-import Center from "./styles/Center";
 import SickButton from "./styles/SickButton";
 
 export default class Item extends Component {

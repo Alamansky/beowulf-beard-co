@@ -13,7 +13,7 @@ const DELETE_ITEM_MUTATION = gql`
 
 export default class DeleteItem extends Component {
   update = (cache, payload) => {
-    // manually update cache
+    // manually update the cache
     // 1. Read cache
     const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
     // 2. Filter the deleted item out of the page
