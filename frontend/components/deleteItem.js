@@ -11,7 +11,7 @@ const DELETE_ITEM_MUTATION = gql`
   }
 `;
 
-export default class deleteItem extends Component {
+export default class DeleteItem extends Component {
   update = (cache, payload) => {
     // manually update cache
     // 1. Read cache
