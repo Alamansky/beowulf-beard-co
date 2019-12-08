@@ -11,9 +11,17 @@ function createClient({ headers }) {
         fetchOptions: {
           credentials: "include"
         },
-        headers
+        headers: { cookie: headers && headers.cookie }
       });
     },
+    /* request: operation => {
+      operation.setContext({
+        fetchOptions: {
+          credentials: "include"
+        },
+        headers
+      });
+    }, */
     //local data
     clientState: {
       resolvers: {
