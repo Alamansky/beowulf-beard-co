@@ -215,7 +215,7 @@ const Mutations = {
     // recalc total for the price
     const user = await ctx.db.query.user(
       { where: { id: userId } },
-      d`{id name email cart {id quantity item {title price id description image largeImage}}}`
+      `{id name email cart {id quantity item {title price id description image largeImage}}}`
     );
     const amount = user.cart.reduce(
       (totalPrice, cartItem) =>

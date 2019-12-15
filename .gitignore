@@ -7,6 +7,7 @@
 
 # Environmental variables
 *.env
+/*/**/.env.build
 
 # Logs
 logs
