@@ -275,10 +275,10 @@ const Mutations = {
       message: thankYouForYourOrder(args.customer)
     };
 
-    fs.writeFileSync(
-      path.join(path.resolve() + "/logs/derp.txt"),
+    /*     fs.writeFileSync(
+      path.join(path.resolve() + "/logs/testing.txt"),
       JSON.stringify(locals, null, 2)
-    );
+    ); */
 
     sendEmail(
       user.email,
