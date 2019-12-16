@@ -22,7 +22,8 @@ export default class AddToCart extends Component {
   updateQuantity = operator => {
     operator == "add"
       ? this.setState({ quantity: this.state.quantity + 1 })
-      : this.setState({ quantity: this.state.quantity - 1 });
+      : this.state.quantity > 1 &&
+        this.setState({ quantity: this.state.quantity - 1 });
   };
 
   render() {

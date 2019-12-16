@@ -20,9 +20,11 @@ const BLOGPOSTS = gql`
 const BlogPosts = () => {
   return (
     <Query query={BLOGPOSTS}>
-      {({ data }) =>
-        data.blogPosts.map(post => <BlogPost post={post} key={post.id} />)
-      }
+      {({ data }) => {
+        return data.blogPosts
+          ? data.blogPosts.map(post => <BlogPost post={post} key={post.id} />)
+          : null;
+      }}
     </Query>
   );
 };

@@ -39,7 +39,6 @@ const Permissions = props => (
   <Query query={ALL_USERS_QUERY}>
     {({ data, loading, error }) => (
       <div>
-        {console.log(data)}
         <Error error={error} />
         <div>
           <h2>Manage Permissions</h2>

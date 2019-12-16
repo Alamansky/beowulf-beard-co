@@ -45,13 +45,11 @@ class updateItem extends Component {
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === "number" ? parseFloat(value) : value;
-    //console.log();
     this.setState({ [name]: val });
   };
 
   updateItem = async (e, updateItemMutation) => {
     e.preventDefault();
-    console.log("updating item!");
     const res = await updateItemMutation({
       variables: {
         id: this.props.id,

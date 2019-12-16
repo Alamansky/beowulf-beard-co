@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Items from "../components/Items";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import FeaturedItems from "../components/FeaturedItems";
@@ -14,7 +12,7 @@ const Index = props => (
     <About />
     <LatestBlogPost />
     <Features />
-    <Contact email="andrewlamansky@gmail.com" />
+    <Contact />
   </React.Fragment>
 );
 

@@ -29,16 +29,23 @@ const LatestBlogPost = props => {
             <Center>
               <SectionTitle>From our Blog...</SectionTitle>
             </Center>
-            <BlogPost post={data.blogPosts[0]} />
-            <Link
-              href={{ pathname: "post", query: { id: data.blogPosts[0].id } }}
-            >
-              <Center>
-                <SickButton style={{ margin: "10rem" }}>
-                  See All Posts
-                </SickButton>
-              </Center>
-            </Link>
+            {data.blogPosts && (
+              <React.Fragment>
+                <BlogPost post={data.blogPosts[0]} />
+                <Link
+                  href={{
+                    pathname: "post",
+                    query: { id: data.blogPosts[0].id }
+                  }}
+                >
+                  <Center>
+                    <SickButton style={{ margin: "10rem" }}>
+                      See All Posts
+                    </SickButton>
+                  </Center>
+                </Link>
+              </React.Fragment>
+            )}
           </Inner>
         </Section>
       )}

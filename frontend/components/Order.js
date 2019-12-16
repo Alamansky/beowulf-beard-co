@@ -39,9 +39,14 @@ class Order extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired
   };
+
+  state = {
+    orderID: this.props.id
+  };
+
   render() {
     return (
-      <Query query={SINGLE_ORDER_QUERY} variables={{ id: this.props.id }}>
+      <Query query={SINGLE_ORDER_QUERY} variables={{ id: this.state.orderID }}>
         {({ data, error, loading }) => {
           if (error) return <Error error={error} />;
           if (loading) return <span>Loading...</span>;
@@ -57,7 +62,7 @@ class Order extends React.Component {
                 </Head>
                 <p>
                   <span>Order ID:</span>
-                  <span>{this.props.id}</span>
+                  <span>{this.state.orderID}</span>
                 </p>
                 <p>
                   <span>Date:</span>

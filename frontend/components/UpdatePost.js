@@ -39,7 +39,6 @@ class updatePost extends Component {
 
   updateBlogPost = async (e, updateBlogPostMutation) => {
     e.preventDefault();
-    console.log("updating item!");
     const res = await updateBlogPostMutation({
       variables: {
         id: this.props.id,

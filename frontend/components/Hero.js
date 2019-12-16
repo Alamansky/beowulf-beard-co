@@ -57,7 +57,6 @@ export default class Hero extends Component {
               id="hero-text"
               style={{
                 transform: `translateY(calc(-${this.state.scroll}rem / 10))`,
-                filter: `blur(calc(${this.state.scroll}px / 50))`,
                 letterSpacing: `calc(${this.state.scroll}px / 50)`
               }}
             >

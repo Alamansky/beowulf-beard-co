@@ -281,7 +281,7 @@ const Mutations = {
     ); */
 
     sendEmail(
-      user.email,
+      args.customerEmail,
       "Thank you for your order!",
       pugify(locals, "toCustomer")
     );
