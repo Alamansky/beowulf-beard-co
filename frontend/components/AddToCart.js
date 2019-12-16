@@ -26,6 +26,11 @@ export default class AddToCart extends Component {
         this.setState({ quantity: this.state.quantity - 1 });
   };
 
+  addItemToCart = async addToCart => {
+    const res = await addToCart();
+    window && window.scrollTo(0, 0);
+  };
+
   render() {
     const { id } = this.props;
     const { quantity } = this.state;
@@ -45,14 +50,20 @@ export default class AddToCart extends Component {
                   updateQuantity={this.updateQuantity}
                   quantity={this.state.quantity}
                 />
-                <CustomButton onClick={addToCart} disabled={loading}>
+                <CustomButton
+                  onClick={() => this.addItemToCart(addToCart)}
+                  disabled={loading}
+                >
                   Add{loading && "ing"} to Cart
                 </CustomButton>
               </React.Fragment>
             );
           } else {
             return (
-              <button onClick={addToCart} disabled={loading}>
+              <button
+                onClick={() => this.addItemToCart(addToCart)}
+                disabled={loading}
+              >
                 Add{loading && "ing"} to Cart
               </button>
             );

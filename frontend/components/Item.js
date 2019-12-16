@@ -9,6 +9,7 @@ import DeleteItem from "./DeleteItem";
 import AddToCart from "./AddToCart";
 import User from "../components/User";
 import SickButton from "./styles/SickButton";
+import AdminView from "./AdminView";
 
 export default class Item extends Component {
   static propTypes = {
@@ -31,14 +32,14 @@ export default class Item extends Component {
             <AddToCart button={SickButton} id={item.id} />
             <div className="buttonList">
               {me && (
-                <React.Fragment>
+                <AdminView>
                   <Link href={{ pathname: "/update", query: { id: item.id } }}>
                     <a>Edit</a>
                   </Link>
                   <DeleteItem id={item.id}>
                     <a>Delete this Item</a>
                   </DeleteItem>
-                </React.Fragment>
+                </AdminView>
               )}
             </div>
           </ItemStyles>

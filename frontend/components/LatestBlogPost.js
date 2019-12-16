@@ -31,11 +31,17 @@ const LatestBlogPost = props => {
             </Center>
             {data.blogPosts && (
               <React.Fragment>
-                <BlogPost post={data.blogPosts[0]} />
                 <Link
                   href={{
                     pathname: "post",
                     query: { id: data.blogPosts[0].id }
+                  }}
+                >
+                  <BlogPost post={data.blogPosts[0]} />
+                </Link>
+                <Link
+                  href={{
+                    pathname: "blog"
                   }}
                 >
                   <Center>

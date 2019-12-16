@@ -9,6 +9,8 @@ import Error from "./ErrorMessage";
 import OrderStyles from "./styles/OrderStyles";
 import InnerBorder from "./styles/InnerBorder";
 import OrderCopy from "./copy/OrderCopy";
+import SickButton from "./styles/SickButton";
+import Link from "next/link";
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -97,6 +99,13 @@ class Order extends React.Component {
                   <span>{formatMoney(order.total)}</span>
                 </p>
               </OrderStyles>
+              <Link
+                href={{
+                  pathname: "/"
+                }}
+              >
+                <SickButton>Home Page</SickButton>
+              </Link>
             </React.Fragment>
           );
         }}

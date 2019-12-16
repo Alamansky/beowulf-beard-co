@@ -3,6 +3,7 @@ import WhiteSpace from "./styles/WhiteSpace";
 import Link from "next/link";
 import styled from "styled-components";
 import User from "../components/User";
+import AdminView from "./AdminView";
 
 const BlogThumbnail = styled.img`
   width: 200px;
@@ -48,9 +49,13 @@ const BlogPost = props => {
         return (
           <React.Fragment>
             {me && (
-              <Link href={{ pathname: "/updatePost", query: { id: post.id } }}>
-                <button>Edit</button>
-              </Link>
+              <AdminView>
+                <Link
+                  href={{ pathname: "/updatePost", query: { id: post.id } }}
+                >
+                  <button>Edit</button>
+                </Link>
+              </AdminView>
             )}
             <Link
               href={{ pathname: "/post", query: { id: post.id } }}

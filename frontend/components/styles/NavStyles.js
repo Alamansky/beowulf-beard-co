@@ -38,9 +38,9 @@ const NavStyles = styled.ul`
       outline: none;
       &:before {
         border-bottom: 2px solid black;
-      }
-      @media (max-width: 700px) {
-        width: calc(100% - 10px);
+        @media (max-width: 700px) {
+          border-bottom: none;
+        }
       }
     }
   }

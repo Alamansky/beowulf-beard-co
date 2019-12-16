@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { makeANiceEmail, transport } = require("../vendor/nodemailer");
@@ -10,8 +9,6 @@ const sendJWT = require("../util/sendJWT");
 const getExcerpt = require("../util/getExcerpt");
 const sendEmail = require("../email/sendEmail");
 const pugify = require("../email/pugify");
-const fs = require("fs");
-const path = require("path");
 const formatMoney = require("../util/formatMoney");
 const thankYouForYourOrder = require("../email/copy/thankYouForYourOrder");
 const yourOrderHasShipped = require("../email/copy/yourOrderHasShipped");
@@ -263,8 +260,8 @@ const Mutations = {
     // return the Order to the client
 
     const locals = {
-      customerName: args.customerName,
-      customerAddress: args.customerAddress,
+      customerName: order.customerName,
+      customerAddress: order.customerAddress,
       id: order.id,
       items: orderItems.map(item => {
         const formattedPrice = formatMoney(item.price);
@@ -272,7 +269,7 @@ const Mutations = {
         return item;
       }),
       total: formatMoney(charge.amount),
-      message: thankYouForYourOrder(args.customer)
+      message: thankYouForYourOrder(order.customerName)
     };
 
     /*     fs.writeFileSync(
