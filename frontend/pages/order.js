@@ -1,5 +1,5 @@
 import Order from "../components/Order";
 
-const orderPage = props => <Order id={props.query.id}></Order>;
+const orderPage = ({ query }) => <Order id={query.id} />;
 
 export default orderPage;
