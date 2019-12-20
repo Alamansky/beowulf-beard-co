@@ -45,6 +45,10 @@ class updatePost extends Component {
         ...this.state
       }
     });
+    Router.push({
+      pathname: "/post",
+      query: { id: this.props.id }
+    });
   };
 
   render() {

@@ -5,6 +5,7 @@ import Inner from "./styles/Inner";
 import WhiteSpace from "./styles/WhiteSpace";
 import Link from "next/link";
 import styled from "styled-components";
+import AdminView from "./AdminView";
 
 const PrevNextNav = styled.div`
   display: flex;
@@ -48,6 +49,11 @@ const SingleBlogPost = props => {
         <Inner>
           <article>
             <BlogFeaturedImage src={blogPost.largeImage} />
+            <AdminView>
+              <Link href={{ pathname: "/updatePost", query: { id: props.id } }}>
+                <button>Edit</button>
+              </Link>
+            </AdminView>
             <h2>{blogPost.title}</h2>
             <WhiteSpace>{blogPost.post}</WhiteSpace>
           </article>

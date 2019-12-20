@@ -7,11 +7,11 @@ import gql from "graphql-tag";
 import formatMoney from "../lib/formatMoney";
 import Error from "./ErrorMessage";
 import OrderStyles from "./styles/OrderStyles";
-import InnerBorder from "./styles/InnerBorder";
+import OuterBorder from "./styles/OuterBorder";
 import OrderCopy from "./copy/OrderCopy";
 import SickButton from "./styles/SickButton";
 import Link from "next/link";
-import Center from './styles/Center';
+import Center from "./styles/Center";
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -56,9 +56,9 @@ class Order extends React.Component {
           const order = data.order;
           return (
             <React.Fragment>
-              <InnerBorder>
+              <OuterBorder style={{ marginBottom: "2rem" }}>
                 <OrderCopy order={order} />
-              </InnerBorder>
+              </OuterBorder>
               <OrderStyles data-test="order">
                 <Head>
                   <title>Sick Fits - Order {order.id}</title>
@@ -105,7 +105,9 @@ class Order extends React.Component {
                   pathname: "/"
                 }}
               >
-                <Center><SickButton>Home Page</SickButton></Center>
+                <Center>
+                  <SickButton>Home Page</SickButton>
+                </Center>
               </Link>
             </React.Fragment>
           );
