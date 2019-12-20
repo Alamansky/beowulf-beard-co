@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const OrderStyles = styled.div`
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 0 auto 4rem auto;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
   padding: 2rem;

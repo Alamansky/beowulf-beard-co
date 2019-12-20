@@ -13,6 +13,7 @@ const FeaturesSection = styled.section`
 
   > * {
     flex: 1;
+    margin: 2rem;
   }
 `;
 

@@ -11,6 +11,7 @@ import InnerBorder from "./styles/InnerBorder";
 import OrderCopy from "./copy/OrderCopy";
 import SickButton from "./styles/SickButton";
 import Link from "next/link";
+import Center from './styles/Center';
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -104,7 +105,7 @@ class Order extends React.Component {
                   pathname: "/"
                 }}
               >
-                <SickButton>Home Page</SickButton>
+                <Center><SickButton>Home Page</SickButton></Center>
               </Link>
             </React.Fragment>
           );
