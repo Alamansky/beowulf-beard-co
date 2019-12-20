@@ -9,6 +9,8 @@ const browserSync = require("browser-sync").create();
 // dummy data
 const locals = {
   customerName: "Allen",
+  message:
+    "Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Aenean imperdiet.. Donec mollis hendrerit risus. Nunc sed turpis. Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Aenean imperdiet.. Donec mollis hendrerit risus. Nunc sed turpis.",
   customerAddress: "390 East Ridge Brighton RI 02938",
   total: 25000,
   items: [
